@@ -31,13 +31,12 @@ const Chat = () => {
     event.preventDefault();
     if(input.trim() !== "") {
       setMessages([...messages, { text: input, isUser: true }]);
-      // Send the user's message to your API
       const options = {
         method: 'POST',
-        url: 'https://alchemytextserg-osipchukv1.p.rapidapi.com/your-api-endpoint', // Replace with the correct endpoint
+        url: process.env.REACT_APP_API_URL,
         headers: {
-          'X-RapidAPI-Key': '994ad9ecfamsh713c9fd6571a367p162aaejsne61772635e87',
-          'X-RapidAPI-Host': 'AlchemyTextserg-osipchukV1.p.rapidapi.com'
+          'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
+          'X-RapidAPI-Host': process.env.REACT_APP_RAPIDAPI_HOST
         },
         data: {
           message: input
@@ -45,13 +44,13 @@ const Chat = () => {
       };
       try {
         const response = await axios.request(options);
-        // Add the API's response as a new message
         setMessages(prevMessages => [...prevMessages, { text: response.data, isUser: false }]);
       } catch (error) {
         console.error(error);
       }
       setInput("");
     }
+  
   };
   
 
