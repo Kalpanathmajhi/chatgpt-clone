@@ -56,6 +56,7 @@ const Chat = () => {
 
   return (
     <div className="chat">
+    <h1> Chat </h1>
       <div className="chat__messages">
         {messages.map((message, index) => (
           <p key={index} className={`chat__message ${message.isUser ? "chat__userMessage" : "chat__botMessage"}`}>
