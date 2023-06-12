@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './chat.css';
-
+import Header from './header';
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -55,8 +55,12 @@ const Chat = () => {
   
 
   return (
+     
     <div className="chat">
-    <h1> Chat </h1>
+    <div>
+      <Header />
+    </div>
+   
       <div className="chat__messages">
         {messages.map((message, index) => (
           <p key={index} className={`chat__message ${message.isUser ? "chat__userMessage" : "chat__botMessage"}`}>
