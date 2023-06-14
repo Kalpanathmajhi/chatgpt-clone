@@ -10,7 +10,7 @@ const Chat = () => {
     event.preventDefault();
     if(input.trim() !== "") {
       setMessages([...messages, { text: input, isUser: true }]);
-      // Here we replace the API call with a placeholder response
+
       setMessages(prevMessages => [...prevMessages, { text: "Placeholder response", isUser: false }]);
       setInput("");
     }
