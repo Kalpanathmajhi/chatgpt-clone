@@ -1,61 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import './chat.css';
 import Header from './header';
+
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const options = {
-        method: 'POST',
-        url: 'https://alchemytextserg-osipchukv1.p.rapidapi.com/deleteSingleModel',
-        headers: {
-          'X-RapidAPI-Key': '994ad9ecfamsh713c9fd6571a367p162aaejsne61772635e87',
-          'X-RapidAPI-Host': 'AlchemyTextserg-osipchukV1.p.rapidapi.com'
-        }
-      };
-    
-      try {
-        const response = await axios.request(options);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const sendMessage = async (event) => {
+  const sendMessage = (event) => {
     event.preventDefault();
     if(input.trim() !== "") {
       setMessages([...messages, { text: input, isUser: true }]);
-      const options = {
-        method: 'POST',
-        url: process.env.REACT_APP_API_URL,
-        headers: {
-          'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
-          'X-RapidAPI-Host': process.env.REACT_APP_RAPIDAPI_HOST
-        },
-        data: {
-          message: input
-        }
-      };
-      try {
-        const response = await axios.request(options);
-        setMessages(prevMessages => [...prevMessages, { text: response.data, isUser: false }]);
-      } catch (error) {
-        console.error(error);
-      }
+      // Here we replace the API call with a placeholder response
+      setMessages(prevMessages => [...prevMessages, { text: "Placeholder response", isUser: false }]);
       setInput("");
     }
-  
   };
-  
 
   return (
-     
     <div className="chat">
     <div>
       <Header />
