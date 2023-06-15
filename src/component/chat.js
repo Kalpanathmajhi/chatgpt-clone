@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './chat.css';
 import Header from './header';
 
 const Chat = () => {
-  const [messages, setMessages] = useState([]);
+  const initialMessages = JSON.parse(sessionStorage.getItem('messages')) || [];
+  const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState("");
 
   const sendMessage = (event) => {
     event.preventDefault();
     if(input.trim() !== "") {
-      setMessages([...messages, { text: input, isUser: true }]);
-
-      setMessages(prevMessages => [...prevMessages, { text: "Placeholder response", isUser: false }]);
+      const newMessages = [...messages, 
+                           { text: input, isUser: true }, 
+                           { text: "Placeholder response", isUser: false }
+                          ];
+      setMessages(newMessages);
+      sessionStorage.setItem('messages', JSON.stringify(newMessages));
       setInput("");
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('beforeunload', () => sessionStorage.removeItem('messages'));
+    return () => window.removeEventListener('beforeunload', () => sessionStorage.removeItem('messages'));
+  }, []);
+
   return (
-    <div className="chat">
-    <div>
+<div className="chat">
       <Header />
-    </div>
-   
+
       <div className="chat__messages">
         {messages.map((message, index) => (
           <p key={index} className={`chat__message ${message.isUser ? "chat__userMessage" : "chat__botMessage"}`}>
@@ -29,6 +36,7 @@ const Chat = () => {
           </p>
         ))}
       </div>
+
       <form className="chat__input" onSubmit={sendMessage}>
         <input
           type="text"
@@ -40,6 +48,7 @@ const Chat = () => {
       </form>
     </div>
   );
+  
 };
 
 export default Chat;
