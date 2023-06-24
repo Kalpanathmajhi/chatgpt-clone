@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-
+##For better understanding of file structure use some icon pack
 In the project directory, you can run:
 
 ### `npm start`
